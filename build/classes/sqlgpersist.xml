@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "mybatis-3-config.dtd"> 
+<configuration>
+  
+  <environments default="environments">
+    <environment id="gpersistsql">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+        <property name="url" value="jdbc:sqlserver://gfsqlserver.sqlserver.rds.aliyuncs.com:3433; DatabaseName=inms"/> 
+        <!-- <property name="url" value="gfsqlserver.sqlserver.rds.aliyuncs.com:3433"/> -->
+        <property name="username" value="inms"/>
+        <property name="password" value="jh456JH"/>
+      </dataSource>
+    </environment>
+  </environments>
+  
+  <mappers>
+
+  </mappers>
+  
+</configuration>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<link href="jslib/ext/resources/css/ext-all.css" rel="stylesheet" type="text/css" />
+<link href="jslib/ext/resources/css/gpersist.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="jslib/ext/bootstrap.js"></script>
+<script type="text/javascript" src="jslib/ext/ext-lang-zh_CN.js"></script>
+
+<script type="text/javascript" src="jslib/login/tools.js"></script>
+
+</head>
+<body>
+  <script>
+      Ext.onReady(function() {
+        Ext.Loader.setConfig({
+          enabled : true,
+          paths : {// '类名前缀':'所在路径'
+            'rcp' : 'jslib/view'
+          },
+        });
+        Ext.require(
+          ['rcp.base']);
+        
+        tools.GetMenu();
+        
+        var tree = tools.treepanel();
+        
+        var plTabMain = Ext.create('Ext.TabPanel', {
+          id : "mainTabs",
+          title : "Ext.tab.Panel示例",
+          frame : true,
+          region : "center",
+          renderTo : Ext.getBody()
+        });
+        
+        var viewport = Ext.create("Ext.container.Viewport", {
+          layout : "border",
+          items :
+            [{
+              title : "North Pannel",
+              html : "<button onclick=tools.uploadwindow()>Copy Text</button>",
+              region : "north",
+              height : 100
+            },{
+              title : "East Pannel",
+              html : MenuHtml,
+              region : "east",
+              width : 220
+            },plTabMain,tree]
+        });
+        
+        rrcp = function(data) {
+          var pl = Ext.getCmp('tpanel' + data.id);
+          
+          if (pl) {
+            
+          } else {
+            pl = new Ext.Panel({
+              id : 'tpanel' + data.id,
+              autoScroll : true,
+              titleCollapse : true,
+              closable : true,
+              border : false,
+              closeText : 'closeText',
+              title : data.text,
+              tooltip : 'tooltip',
+              autoDestroy : true,
+              layout : {
+                type : 'border',
+                padding : '0 0 0 0'
+              },
+              listeners : {
+                'afterrender' : function() {
+                  tools.OnMenuClick(data);
+                }
+              }
+            
+            });
+            
+            Ext.getCmp("mainTabs").add(pl);
+          }
+          Ext.getCmp("mainTabs").setActiveTab(pl);
+        };
+        
+      });
+    </script>
+
+
+</body>
+</html>
