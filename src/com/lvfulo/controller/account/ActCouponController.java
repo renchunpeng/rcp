@@ -28,8 +28,8 @@ import com.lvfulo.utils.ToolUtils;
 @Controller
 @RequestMapping("/act")
 public class ActCouponController {
-//	@Autowired
-//	private AccountDao accountDao;
+	// @Autowired
+	// private AccountDao accountDao;
 	@Autowired
 	private AccountService accountService;
 
@@ -58,20 +58,28 @@ public class ActCouponController {
 		try {
 			// 先获取到优惠券列表的所有数据
 			ActCoupon items = new ActCoupon();
-			String itemsearchString = " a.effmonth >= '" + ToolUtils.GetFmtDate(new Date(), "yyyy-MM-dd hh:mm:ss") + "'";
+			String itemsearchString = " a.effmonth >= '"
+					+ ToolUtils.GetFmtDate(new Date(), "yyyy-MM-dd hh:mm:ss")
+					+ "'";
 			items.getSearch().setSearch(itemsearchString);
-			List<ActCoupon> lists = accountService.SearchActCoupon(items,this.getRtv());
+			List<ActCoupon> lists = accountService.SearchActCoupon(items,
+					this.getRtv());
 			// 根据custid去用户绑定优惠券表中查询该用户已经有哪些优惠券了
 			ActUserCoupon itemActUserCoupon = new ActUserCoupon();
-			String rpgsearch = "a.custid = '" + custid + "'" + " and a.isuse = '0'" + " and a.overdate >='" + ToolUtils.GetFmtDate(new Date(), "yyyy-MM-dd hh:mm:ss") + "'";
+			String rpgsearch = "a.custid = '" + custid + "'"
+					+ " and a.isuse = '0'" + " and a.overdate >='"
+					+ ToolUtils.GetFmtDate(new Date(), "yyyy-MM-dd hh:mm:ss")
+					+ "'";
 
 			itemActUserCoupon.getSearch().setSearch(rpgsearch);
-			List<ActUserCoupon> itemActUserCoupons = accountService.SearchActUserCoupon(itemActUserCoupon,this.getRtv());
+			List<ActUserCoupon> itemActUserCoupons = accountService
+					.SearchActUserCoupon(itemActUserCoupon, this.getRtv());
 
 			for (ActUserCoupon actUserCoupon : itemActUserCoupons) {// 这是已经拥有的
 				// 在优惠券列表中去除用户绑定优惠券
 				for (int i = lists.size() - 1; i >= 0; i--) {// 这是总列表
-					if (actUserCoupon.getCouponid().equals(lists.get(i).getCouponid())) {
+					if (actUserCoupon.getCouponid().equals(
+							lists.get(i).getCouponid())) {
 						lists.remove(i);
 						break;
 					}
@@ -104,15 +112,17 @@ public class ActCouponController {
 		JSONObject jo = JSONObject.fromObject(item);
 		String custid = jo.getString("custid");
 		String items = jo.getString("item");
-		List<ActUserCoupon> itemActUserCoupons = MyTools.GetArrayFromJson(items, ActUserCoupon.class);
+		List<ActUserCoupon> itemActUserCoupons = MyTools.GetArrayFromJson(
+				items, ActUserCoupon.class);
 
 		for (ActUserCoupon itemActUserCoupon : itemActUserCoupons) {
 			itemActUserCoupon.setBdcouponid(MyTools.CreateID("DB"));
 			itemActUserCoupon.setCustid(custid);
 			itemActUserCoupon.setGetdate(new Date());
 			itemActUserCoupon.setIsuse(false);
-			itemActUserCoupon.getDeal().setAction(DataAction.Create.getAction());
-			accountService.SaveActUserCoupon(itemActUserCoupon,this.getRtv());
+			itemActUserCoupon.getDeal()
+					.setAction(DataAction.Create.getAction());
+			accountService.SaveActUserCoupon(itemActUserCoupon, this.getRtv());
 		}
 		this.getRtv().setSuccess(true);
 		return this.getRtv();
@@ -132,9 +142,13 @@ public class ActCouponController {
 
 			// 先获取到用户绑定的所有优惠券
 			ActUserCoupon itemActUserCoupon = new ActUserCoupon();
-			String rpgsearch = "a.custid = '" + custid + "'" + " and a.isuse = '0'" + " and a.overdate >='" + ToolUtils.GetFmtDate(new Date(), "yyyy-MM-dd hh:mm:ss") + "'";
+			String rpgsearch = "a.custid = '" + custid + "'"
+					+ " and a.isuse = '0'" + " and a.overdate >='"
+					+ ToolUtils.GetFmtDate(new Date(), "yyyy-MM-dd hh:mm:ss")
+					+ "'";
 			itemActUserCoupon.getSearch().setSearch(rpgsearch);
-			List<ActUserCoupon> itemActUserCoupons = accountService.SearchActUserCoupon(itemActUserCoupon,this.getRtv());
+			List<ActUserCoupon> itemActUserCoupons = accountService
+					.SearchActUserCoupon(itemActUserCoupon, this.getRtv());
 
 			// 新建两个list，分别保存满减的优惠券和对应prdid折扣的优惠券
 			List<ActUserCoupon> manjianActUserCoupons = new ArrayList<ActUserCoupon>();
@@ -163,8 +177,8 @@ public class ActCouponController {
 	}
 
 	/**
-	 * 获取我的符合订单优惠券 item数据格式{ custid:"rcp", prdlist:"prdid1,prdid2", accountsum:150
-	 * }
+	 * 获取我的符合订单优惠券 item数据格式{ custid:"rcp", prdlist:"prdid1,prdid2",
+	 * accountsum:150 }
 	 * 
 	 * @param item
 	 * @return
@@ -177,9 +191,13 @@ public class ActCouponController {
 		try {
 			// 先获取到用户绑定的所有优惠券
 			ActUserCoupon itemActUserCoupon = new ActUserCoupon();
-			String rpgsearch = "a.custid = '" + kkObject.getString("custid") + "'" + " and a.isuse = '0'" + " and a.overdate >='" + ToolUtils.GetFmtDate(new Date(), "yyyy-MM-dd hh:mm:ss") + "'";
+			String rpgsearch = "a.custid = '" + kkObject.getString("custid")
+					+ "'" + " and a.isuse = '0'" + " and a.overdate >='"
+					+ ToolUtils.GetFmtDate(new Date(), "yyyy-MM-dd hh:mm:ss")
+					+ "'";
 			itemActUserCoupon.getSearch().setSearch(rpgsearch);
-			List<ActUserCoupon> itemActUserCoupons = accountService.SearchActUserCoupon(itemActUserCoupon,this.getRtv());
+			List<ActUserCoupon> itemActUserCoupons = accountService
+					.SearchActUserCoupon(itemActUserCoupon, this.getRtv());
 
 			// 新建两个list，分别保存满减的优惠券和对应prdid折扣的优惠券
 			List<ActUserCoupon> manjianActUserCoupons = new ArrayList<ActUserCoupon>();
@@ -198,7 +216,8 @@ public class ActCouponController {
 			for (int i = manjianActUserCoupons.size() - 1; i >= 0; i--) {
 				ActUserCoupon itemActUserCoupon2 = manjianActUserCoupons.get(i);
 				double price = kkObject.getDouble("accountsum");
-				if (!(price >= itemActUserCoupon2.getLowlimit() && price <= itemActUserCoupon2.getUplimit())) {
+				if (!(price >= itemActUserCoupon2.getLowlimit() && price <= itemActUserCoupon2
+						.getUplimit())) {
 					manjianActUserCoupons.remove(i);
 				}
 			}
@@ -233,7 +252,8 @@ public class ActCouponController {
 
 	public static void main(String[] args) {
 		String rcpString = "{\"coupnid\":\"rcp11\",\"prdid\":\"er\",\"uplimit\":123,\"lowlimit\":100,\"couponmoney\":10,\"effmonth\":10,\"ismixuse\":1}";
-		ActUserCoupon rcp = MyTools.GetOneFromJson(rcpString, ActUserCoupon.class);
+		ActUserCoupon rcp = MyTools.GetOneFromJson(rcpString,
+				ActUserCoupon.class);
 		System.out.println(123);
 	}
 }
