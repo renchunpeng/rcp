@@ -22,6 +22,7 @@ import com.lvfulo.utils.ToolUtils;
 @Controller
 @RequestMapping("/account")
 public class AccountController {
+	//这是一段注释
 	@Autowired
 	private AccountService accountservice;
 
