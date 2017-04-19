@@ -22,7 +22,6 @@ import com.lvfulo.utils.ToolUtils;
 @Controller
 @RequestMapping("/account")
 public class AccountController {
-	//这是一段注释性的话语
 	@Autowired
 	private AccountService accountservice;
 
@@ -39,7 +38,7 @@ public class AccountController {
 	}
 
 	/**
-	 * @author rcp
+	 * @author wq
 	 * @description 用户注册接口
 	 */
 
