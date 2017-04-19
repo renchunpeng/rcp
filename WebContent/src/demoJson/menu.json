@@ -1,0 +1,19 @@
+{
+    "success": true,
+    "error": 0,
+    "message": "success",
+    "data": [
+        {
+            "iconurl": "shuiguo",
+            "prdtype": "01",
+            "prdtypeintrduction": "水果类型00",
+            "prdtypename": "水果"
+        },
+        {
+            "iconurl": "shucai",
+            "prdtype": "00",
+            "prdtypeintrduction": "蔬菜类型",
+            "prdtypename": "蔬菜"
+        }
+    ]
+}

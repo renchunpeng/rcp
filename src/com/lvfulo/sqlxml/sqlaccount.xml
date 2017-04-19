@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+<mapper namespace="com.lvfulo.dao.account.AccountDao">
+
+	<!-- 用户注册功能,查询是否已存在 ,不管连任何参数 -->
+	<select id="SearchOnlyUser" resultType="com.lflweb.entity.ctm.CtmBase" parameterType="com.lflweb.entity.ctm.CtmBase" statementType="CALLABLE">
+		{call P_Get_GetUser(
+		#{search.search,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+
+	<!-- 用户注册功能,存储用户 -->
+	<select id="saveUser" resultType="com.lflweb.entity.ctm.CtmBase" parameterType="com.lflweb.entity.ctm.CtmBase" statementType="CALLABLE">
+		{call P_Save_CtmUser(
+		#{custid,javaType=String,jdbcType=VARCHAR},
+		#{custname,javaType=String,jdbcType=VARCHAR},
+		#{custpwd,javaType=String,jdbcType=VARCHAR},
+		#{realname,javaType=String,jdbcType=VARCHAR},
+		#{custmobile,javaType=String,jdbcType=VARCHAR},
+		#{custemail,javaType=String,jdbcType=VARCHAR},
+		#{custsex,javaType=String,jdbcType=VARCHAR},
+		#{custsource,javaType=String,jdbcType=VARCHAR},
+		#{custtype,javaType=String,jdbcType=VARCHAR},
+		#{custgrade,javaType=String,jdbcType=VARCHAR},
+		#{custstatus,javaType=String,jdbcType=VARCHAR},
+		#{custlocation,javaType=String,jdbcType=VARCHAR},
+		#{regdate,javaType=java.util.Date},
+		#{logindate,javaType=java.util.Date},
+		#{custavatar,javaType=String,jdbcType=VARCHAR},
+		#{custwechat,javaType=String,jdbcType=VARCHAR},
+		#{wechatavatar,javaType=String,jdbcType=VARCHAR},
+		#{safelevel,javaType=String,jdbcType=VARCHAR},
+		#{remark,javaType=String,jdbcType=VARCHAR},
+		#{openid,javaType=String,jdbcType=VARCHAR},
+		#{testopenid,javaType=String,jdbcType=VARCHAR},
+		#{deal.action,javaType=int,jdbcType=INTEGER}
+		)}
+	</select>
+
+	<!-- 查找用户(t_ctm_base) -->
+	<select id="SearchUser" resultType="com.lflweb.entity.ctm.CtmBase" parameterType="com.lflweb.entity.ctm.CtmBase" statementType="CALLABLE">
+		{call P_Search_MyUser(
+		#{search.search,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+
+	<!-- 用户登录类型保存 -->
+	<update id="SaveCtmLogin" statementType="CALLABLE" parameterType="com.lflweb.entity.ctm.CtmLogin" flushCache="true">
+		{call P_Save_CtmLogin(
+		#{custid,javaType=String,jdbcType=VARCHAR},
+		#{loginid,javaType=String,jdbcType=VARCHAR},
+		#{logintype,javaType=String,jdbcType=VARCHAR},
+		#{deal.action,javaType=int,jdbcType=INTEGER}
+		)}
+
+	</update>
+
+	<!-- 获取用户登录类型 -->
+	<select id="GetLoginType" resultType="com.lflweb.entity.ctm.CtmLogin" parameterType="com.lflweb.entity.ctm.CtmLogin" statementType="CALLABLE">
+		{call
+		P_Get_LoginType(
+		#{loginid,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+
+	<!-- 用户操作日志表 -->
+	<update id="Savelogcustmodify" statementType="CALLABLE" parameterType="com.lflweb.entity.log.LogCustmodify" flushCache="true">
+		{call P_Save_LogcustModify(
+		#{logid,javaType=String,jdbcType=VARCHAR},
+		#{logdate,javaType=java.util.Date},
+		#{logoperator,javaType=String,jdbcType=VARCHAR},
+		#{logtype,javaType=String,jdbcType=VARCHAR},
+		#{logdetail,javaType=String,jdbcType=VARCHAR},
+		#{custid,javaType=String,jdbcType=VARCHAR},
+		#{deal.action,javaType=int,jdbcType=INTEGER}
+		)}
+	</update>
+
+	<!-- 用户等级变更 -->
+	<update id="SaveChangeGrade" statementType="CALLABLE" parameterType="com.lflweb.entity.ctm.CtmGrade" flushCache="true">
+		{call P_Save_ChangeGrade(
+		#{custid,javaType=String,jdbcType=VARCHAR},
+		#{origingrade,javaType=String,jdbcType=VARCHAR},
+		#{custgrade,javaType=String,jdbcType=VARCHAR},
+		#{updatedate,javaType=java.util.Date},
+		#{deal.action,javaType=int,jdbcType=INTEGER}
+		)}
+	</update>
+
+	<!-- 用户验证码保存 -->
+	<update id="SaveSmsCode" statementType="CALLABLE" parameterType="com.lflweb.entity.ctm.CtmSmsCode" flushCache="true">
+		{call P_Save_SmsCode(
+		#{custmobile,javaType=String,jdbcType=VARCHAR},
+		#{verifycode,javaType=String,jdbcType=VARCHAR},
+		#{createdate,javaType=java.util.Date},
+		#{deal.action,javaType=int,jdbcType=INTEGER}
+		)}
+	</update>
+
+	<!-- 查找用户验证码 -->
+	<select id="SearchSmsCode" resultType="com.lflweb.entity.ctm.CtmSmsCode" parameterType="com.lflweb.entity.ctm.CtmSmsCode" statementType="CALLABLE">
+		{call
+		P_Search_SmsCode(
+		#{search.search,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+
+	<!-- 用户登录保存 -->
+	<select id="saveLogCtmLogin" resultType="com.lflweb.entity.log.LogCtmLogin" parameterType="com.lflweb.entity.log.LogCtmLogin" statementType="CALLABLE">
+		{call
+		P_Save_RcpLogCtmLogin(
+		#{custid,javaType=String,jdbcType=VARCHAR},
+		#{logindate,javaType=java.util.Date},
+		#{custsource,javaType=String,jdbcType=VARCHAR},
+		#{loginip,javaType=String,jdbcType=VARCHAR},
+		#{logindetail,javaType=String,jdbcType=VARCHAR},
+		#{deal.action,javaType=int,jdbcType=INTEGER}
+		)}
+	</select>
+
+	<!-- 获取用户登录类型 -->
+	<select id="SearchLoginType" resultType="com.lflweb.entity.ctm.CtmLogin" parameterType="com.lflweb.entity.ctm.CtmLogin" statementType="CALLABLE">
+		{call
+		P_Search_RcpLoginType(
+		#{search.search,javaType=String,jdbcType=VARCHAR}
+
+		)}
+	</select>
+
+	<!-- 用户积分保存 -->
+	<select id="SaveActIntegral" resultType="com.lflweb.entity.act.ActIntegral" parameterType="com.lflweb.entity.act.ActIntegral" statementType="CALLABLE">
+		{call
+		P_Save_RcpActIntegral(
+		#{integralid,javaType=String,jdbcType=VARCHAR},
+		#{custid,javaType=String,jdbcType=VARCHAR},
+		#{accountstatus,javaType=String,jdbcType=VARCHAR},
+		#{integralbalance,javaType=int,jdbcType=INTEGER},
+		#{deal.action,javaType=int,jdbcType=INTEGER}
+		)}
+	</select>
+
+	<!-- 用户积分保存明细 -->
+	<select id="SaveActIntegralDetail" resultType="com.lflweb.entity.act.ActIntegralDetail" parameterType="com.lflweb.entity.act.ActIntegralDetail"
+		statementType="CALLABLE">
+		{call P_Save_RcpActIntegralDetail(
+		#{traceid,javaType=String,jdbcType=VARCHAR},
+		#{integralid,javaType=String,jdbcType=VARCHAR},
+		#{tranintegral,javaType=int,jdbcType=INTEGER},
+		#{trantype,javaType=String,jdbcType=VARCHAR},
+		#{trandate,javaType=java.util.Date},
+		#{trandesc,javaType=String,jdbcType=VARCHAR},
+		#{deal.action,javaType=int,jdbcType=INTEGER}
+		)}
+	</select>
+
+	<!-- 积分月度结算表 -->
+	<select id="SaveActIntegralMonth" resultType="com.lflweb.entity.act.ActIntegralMonth" parameterType="com.lflweb.entity.act.ActIntegralMonth"
+		statementType="CALLABLE">
+		{call P_Save_RcpActIntegralMonth(
+		#{integralid,javaType=String,jdbcType=VARCHAR},
+		#{custid,javaType=String,jdbcType=VARCHAR},
+		#{tranym,javaType=String,jdbcType=VARCHAR},
+		#{integralbalance,javaType=int,jdbcType=INTEGER},
+		#{deal.action,javaType=int,jdbcType=INTEGER}
+		)}
+	</select>
+
+	<!-- 用户积分账户查询 -->
+	<select id="SearchActIntegral" resultType="com.lflweb.entity.act.ActIntegral" parameterType="com.lflweb.entity.act.ActIntegral" statementType="CALLABLE">
+		{call
+		P_Search_ActIntegral(
+		#{search.search,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+
+
+	<!-- 积分月度结算查询 -->
+	<select id="SearchActIntegralMonth" resultType="com.lflweb.entity.act.ActIntegralMonth" parameterType="com.lflweb.entity.act.ActIntegralMonth"
+		statementType="CALLABLE">
+		{call P_Search_ActIntegralMonth(
+		#{search.search,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+
+	<!-- 积分明细查询 -->
+	<select id="SearchActIntegralDetail" resultType="com.lflweb.entity.act.ActIntegralDetail" parameterType="com.lflweb.entity.act.ActIntegralDetail"
+		statementType="CALLABLE">
+		{call P_Search_ActIntegralDetail(
+		#{search.search,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+
+	<!-- 优惠券查询 -->
+	<select id="SearchActCoupon" resultType="com.lflweb.entity.act.ActCoupon" parameterType="com.lflweb.entity.act.ActCoupon" statementType="CALLABLE">
+		{call
+		P_Search_RcpActCoupon(
+		#{search.search,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+
+	<!-- 用户绑定优惠券查询 -->
+	<select id="SearchActUserCoupon" resultType="com.lflweb.entity.act.ActUserCoupon" parameterType="com.lflweb.entity.act.ActUserCoupon" statementType="CALLABLE">
+		{call P_Search_RcpActUserCoupon(
+		#{search.search,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+
+	<!-- 用户绑定优惠券保存 -->
+	<select id="SaveActUserCoupon" resultType="com.lflweb.entity.act.ActUserCoupon" parameterType="com.lflweb.entity.act.ActUserCoupon" statementType="CALLABLE">
+		{call
+		P_Save_RcpActUserCoupon(
+		#{bdcouponid,javaType=String,jdbcType=VARCHAR},
+		#{custid,javaType=String,jdbcType=VARCHAR},
+		#{couponid,javaType=String,jdbcType=VARCHAR},
+		#{prdid,javaType=String,jdbcType=VARCHAR},
+		#{lowlimit,javaType=double,jdbcType=DOUBLE},
+		#{uplimit,javaType=double,jdbcType=DOUBLE},
+		#{couponmoney,javaType=double,jdbcType=DOUBLE},
+		#{getdate,javaType=java.util.Date},
+		#{overdate,javaType=java.util.Date},
+		#{isuse,javaType=boolean,jdbcType=BOOLEAN},
+		#{orderid,javaType=String,jdbcType=VARCHAR},
+		#{usedate,javaType=java.util.Date},
+		#{ismixuse,javaType=boolean,jdbcType=BOOLEAN},
+		#{bewrite,javaType=String,jdbcType=VARCHAR},
+		#{deal.action,javaType=int,jdbcType=INTEGER}
+		)}
+	</select>
+
+	<!-- 订单绑定优惠券保存 -->
+	<select id="SaveActPreOrderCoupon" resultType="com.lflweb.entity.act.ActPreOrderCoupon" parameterType="com.lflweb.entity.act.ActPreOrderCoupon"
+		statementType="CALLABLE">
+		{call P_Save_RcpActPreOrderCoupon(
+		#{orderid,javaType=String,jdbcType=VARCHAR},
+		#{bdcouponid,javaType=String,jdbcType=VARCHAR},
+		#{deal.action,javaType=int,jdbcType=INTEGER}
+		)}
+	</select>
+
+	<!-- 预支付订单绑定优惠券查询 -->
+	<select id="SearchActPreOrderCoupon" resultType="com.lflweb.entity.act.ActPreOrderCoupon" parameterType="com.lflweb.entity.act.ActPreOrderCoupon" statementType="CALLABLE">
+		{call P_Search_ActPreOrderCoupon(
+		#{search.search,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+
+</mapper>

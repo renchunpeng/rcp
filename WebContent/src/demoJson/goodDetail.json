@@ -1,0 +1,15 @@
+{
+  "success": true,
+  "error": 0,
+  "message": "success",
+  "data": {
+      "brandImg": "http://www.touxiang.cn/uploads/20130725/25-011254_691.jpg",
+      "brandName": "",
+      "brandDescription": "",
+      "goodName": "",
+      "goodPrice": "",
+      "goodImg": "",
+      "introduction": "",
+      "introductionImg": ""
+  }
+}

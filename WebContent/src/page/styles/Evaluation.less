@@ -1,0 +1,32 @@
+//评分插件样式
+.react-rater {
+  display: inline-block;
+  line-height: normal;
+
+  a {
+    cursor: pointer;
+    color: #ccc;
+    position: relative;
+
+    .will-be-active {
+      color: #ffdd99;
+    }
+
+    .is-active {
+      color: #fc6;
+    }
+
+    .is-active-half:before {
+      color: #fc6;
+      content: '\2605';
+      position: absolute;
+      left: 0;
+      width: 50%;
+      overflow: hidden;
+    }
+
+    .is-disabled {
+      cursor: default;
+    }
+  }
+}

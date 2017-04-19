@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd">
+
+	<!-- HandlerMapping把请求映射为HandlerExecutionChain对象(包含一个Handler处理器(页面控制器)对象、多个HandlerInterceptor拦截器)对象 -->
+	<bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" />
+
+	<!-- HandlerAdapter把处理器包装为适配器，从而支持多种类型的处理器 -->
+	<bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
+
+	<!-- 默认的注解映射的支持，自动注册DefaultAnnotationHandlerMapping和AnnotationMethodHandlerAdapter,这个主要是作用于controller -->
+	<mvc:annotation-driven />
+	<mvc:default-servlet-handler />
+
+	<!-- 启用spring mvc 注解 -->
+	<context:annotation-config />
+
+	<!-- 设置使用注解的类所在，该声明中自动包含了注入processor的功能，除 PersistenceAnnotationBeanPostProcessor和equiredAnnotationBeanPostProcessor -->
+	<context:component-scan base-package="com.lvfulo.controller" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />
+	</context:component-scan>
+
+	<bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/html;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+
+
+	<!-- 完成请求和注解POJO的映射 -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="mappingJacksonHttpMessageConverter" /><!-- json转换器 -->
+			</list>
+		</property>
+	</bean>
+
+	<!-- 对转向页面的路径解析 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="" />
+		<property name="suffix" value="" />  <!-- 可为空 -->
+	</bean>
+
+<!-- 多部分文件上传 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="104857600" />
+		<property name="maxInMemorySize" value="4096" />
+		<property name="defaultEncoding" value="UTF-8"></property>
+	</bean>
+
+	<!-- <mvc:interceptors> -->
+	<!-- <mvc:interceptor> -->
+        <!-- 匹配的是url路径， 如果不配置或/**,将拦截所有的Controller -->
+	<!-- <mvc:mapping path="/**" /> -->
+	<!-- 登录拦截类 -->
+	<!-- <bean class="com.nestle.interceptor.LoginInterceptor"></bean> -->
+	<!-- </mvc:interceptor> -->
+	<!--定义拦截器 <mvc:interceptor> <! 匹配的是url路径， 如果不配置或/**,将拦截所有的Controller <mvc:mapping path="/**" /> <! 不需要拦截的地址 <mvc:exclude-mapping path="/user" /> <bean class="com.nestle.interceptor.GetSessionTimeOutInterceptor"></bean> 
+		</mvc:interceptor> -->
+
+	<!-- <mvc:interceptor> <mvc:mapping path="/**" /> <bean class="com.lvfulo.interceptor.LoginInterceptor"></bean> </mvc:interceptor> -->
+
+	<!-- 当设置多个拦截器时，先按顺序调用preHandle方法，然后逆序调用每个拦截器的postHandle和afterCompletion方法 -->
+	<!-- </mvc:interceptors> -->
+</beans>

@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+<title>新建网页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="布尔教育 http://www.itbool.com" />
+<script src='./jquery.min.js'>
+  
+</script>
+
+<script>
+  function GetJsonData() {
+    var ordbase = {
+      coupon :
+        [
+         {
+          bdcouponid : '002',
+          custid : 'rcp',
+          couponid  : '1',
+          prdid :'1',              
+          uplimit   : '',          
+          lowlimit   :'',          
+          couponmoney   :1.00,  
+          isuse       :false,        
+          orderid      :'',   
+          ismixuse :true
+        },{
+          bdcouponid : '003',
+          custid : 'rcp',
+          couponid  : '2',
+          prdid :'',              
+          uplimit   : 0,          
+          lowlimit   :100,          
+          couponmoney   :1.00,  
+          isuse       :false,        
+          orderid      :'',   
+          ismixuse :true
+        } 
+        ],
+      flag : true,//是否显示发票
+      invoicetransbean : {
+        main : {
+          bankaccount : '14313241234143214124',
+          createdate : '2016-10-27 07:05:44',
+          custid : 'AC201703153115372960',
+          expressid : '00',
+          expresscompany : '00',
+          addressid : 'CU201703100912171176',
+          paytype : '',//支付方式
+          paystatus : '01',
+          invoiceaddress : '测试注册地址',
+          invoiceamt : 0.00,
+          invoicecode : '',
+          invoicedate : '2016-10-27 07:05:44',
+          invoiceid : '',
+          invoicemobile : '18862237873',
+          invoiceperson : '',
+          invoiceproperty : '01',//发票性质
+          invoicerelation : '',
+          invoicestatus : '',
+          invoicestatusname : '未开票',
+          invoicetitle : '测试发票抬头',
+          invoicetranid : '',
+          invoicetype : '01',//发票类型
+          invoicetypename : '',
+          openbank : '测试开户银行',
+          remark : '测试标记',
+          taxid : '1412341324312413243'
+        },
+        son :
+          [{
+            invoicetranid : '',
+            orderamt : 1,
+            orderid : ''
+          },{
+            invoicetranid : '',
+            orderamt : 1,
+            orderid : ''
+          }]
+      },
+      main : {
+        addressid : 'CU201703100912171176',
+        commentdate : '2016-10-27 07:05:44',
+        createdate : '2016-10-27 07:05:44',
+        custid : 'AC201703153115372960',
+        discountamt : 0,
+        invoicetranid : '',
+        iscomment : false,
+        isinvoice : false,
+        okdate : '2016-10-27 07:05:44',
+        orderflag : '',
+        orderid : '',
+        ordersource : '03',
+        orderstatus : '01',
+        orderstatusname : '',
+        ordesourcename : '',
+        paydate : '2016-10-27 07:05:44',
+        paystatus : '01',
+        paysysid : '',
+        paytype : '01',
+        paytypename : '',
+        printdate : '2016-10-27 07:05:44',
+        realprice : 0.00,
+        relatedorder : '',
+        scoreamt : 0,
+        remark : 'ewew',
+        sendbegin : '2016-10-27 07:05:44',//注意要转化为时间格式
+        senddate : '2017-10-10 07:12:12',//配送时间
+        sendend : '2016-10-27 07:05:44',
+        strategyid : '',
+        totalprice : 2.00
+      },
+      son :
+        [{
+          orderid : '',
+          prdid : 'e706e6e7029dd495',
+          prdnum : 1,
+          prdprice : 1.00,
+          prdtax : 0.2,
+          prdunit : '00',
+          sumprice : 1.00,
+          taxamt : 0.20,
+          prdkind : '01',
+          shopid : 'SP000001'
+        },{
+          orderid : '',
+          prdid : 'c11929ff1d6caa92',
+          prdnum : 1,
+          prdprice : 1.00,
+          prdtax : 0.2,
+          prdunit : '00',
+          sumprice : 1.00,
+          taxamt : 0.20,
+          prdkind : '01',
+          shopid : 'SP000000'
+        }]
+    };   
+    return ordbase;
+  }
+
+  console.log(JSON.stringify(GetJsonData()));
+  
+  var url = "http://localhost:80/lflweb/act/savecoupon";
+  $.ajax({
+    type : "post",
+    url : url,
+    contentType : "application/x-www-form-urlencoded; charset=utf-8",
+    data : {
+      ordbase : JSON.stringify(GetJsonData())
+    },
+    cache : false,
+    async : false,
+    success : function(data, textStatus, jqXHR) {
+      alert(data);
+    },
+    error : function(XMLHttpRequest, textStatus, errorThrown) {
+      alert("请求失败！");
+    }
+  });
+</script>
+</head>
+<body>
+  <h3 id="test">请点击下面的按钮，通过 jQuery AJAX 改变这段文本。</h3>
+</body>
+</html>

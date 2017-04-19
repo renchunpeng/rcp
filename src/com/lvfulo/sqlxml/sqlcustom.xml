@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+<mapper namespace="com.lvfulo.dao.custom.CustomDao">
+
+	<!-- 获取某用户账户下所有的收货信息(地址列表查询) -->
+	<select id="searchaddress" resultType="com.lflweb.entity.ctm.CtmAddress" parameterType="com.lflweb.entity.ctm.CtmAddress" statementType="CALLABLE">
+		{call
+		P_Search_Address(
+		#{search.search,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+
+	<!-- 保存用户收货地址信息 -->
+	<select id="saveaddress" resultType="com.lflweb.entity.ctm.CtmAddress" parameterType="com.lflweb.entity.ctm.CtmAddress" statementType="CALLABLE">
+		{call
+		P_Save_Address(
+		#{addressid,javaType=String,jdbcType=VARCHAR},
+		#{custid,javaType=String,jdbcType=VARCHAR},
+		#{addcontact,javaType=String,jdbcType=VARCHAR},
+		#{addmobile,javaType=String,jdbcType=VARCHAR},
+		#{contactsex,javaType=String,jdbcType=VARCHAR},
+		#{companyname,javaType=String,jdbcType=VARCHAR},		
+		#{addcountry,javaType=String,jdbcType=VARCHAR},
+		#{addprov,javaType=String,jdbcType=VARCHAR},
+		#{addcity,javaType=String,jdbcType=VARCHAR},
+		#{addcounty,javaType=String,jdbcType=VARCHAR},
+		#{addtown,javaType=String,jdbcType=VARCHAR},
+		#{adddetail,javaType=String,jdbcType=VARCHAR},
+		#{provid,javaType=String,jdbcType=VARCHAR},
+    #{cityid,javaType=String,jdbcType=VARCHAR},
+    #{countyid,javaType=String,jdbcType=VARCHAR},
+    #{townid,javaType=String,jdbcType=VARCHAR},	
+		#{addtype,javaType=String,jdbcType=VARCHAR},
+		#{isdefault,javaType=boolean,jdbcType=BOOLEAN},
+		#{addstatus,javaType=String,jdbcType=VARCHAR},	
+		#{deal.action,javaType=int,jdbcType=INTEGER}
+		)}
+
+	</select>
+
+	<!-- 查询地址状态 -->
+	<select id="GetAddressStatue" resultType="com.lflweb.entity.ctm.CtmAddress" parameterType="com.lflweb.entity.ctm.CtmAddress" statementType="CALLABLE">
+		{call
+		P_Get_AddressStatue(
+		#{search.search,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+
+</mapper>

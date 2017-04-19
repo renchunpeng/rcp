@@ -1,0 +1,24 @@
+{
+  "success": true,
+  "error": 0,
+  "message": "success",
+  "data": {
+    "list": [
+      {
+        "activetime": "2017-04-01至2017-04-31",
+        "title": "月卡",
+        "remain": "5"
+      },
+      {
+        "activetime": "2017-04-01至2017-04-31",
+        "title": "月卡",
+        "remain": "5"
+      },
+      {
+        "activetime": "2017-04-01至2017-04-31",
+        "title": "月卡",
+        "remain": "5"
+      }
+    ]
+  }
+}

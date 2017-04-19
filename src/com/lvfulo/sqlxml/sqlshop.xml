@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+<mapper namespace="com.lvfulo.dao.shop.ShopDao">
+    <!-- 根据用户编号查询用户店铺入驻情况 -->
+	<select id="GetShopApl" resultType="com.lflweb.entity.mar.MarApl" parameterType="com.lflweb.entity.mar.MarApl" statementType="CALLABLE">
+		{call P_Get_ShopApl(
+		    #{search.search,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+    
+    <!-- 根据店铺编号查询店铺基础信息-->
+	<select id="GetShopBase" resultType="com.lflweb.entity.mar.MarShopdetail" parameterType="com.lflweb.entity.mar.MarShopdetail" statementType="CALLABLE">
+		{call P_Get_ShopBase(
+		    #{search.search,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+	
+    <!-- 店铺注册-->
+	<select id="SaveShopRegister" resultType="com.lflweb.entity.mar.MarApl" parameterType="com.lflweb.entity.mar.MarApl" statementType="CALLABLE">
+		{call P_Save_ShopRegister(
+		    #{aplid,javaType=String,jdbcType=VARCHAR},
+		    #{aplperson,javaType=String,jdbcType=VARCHAR},
+		    #{prdtype,javaType=String,jdbcType=VARCHAR},
+		    #{idencode,javaType=String,jdbcType=VARCHAR},
+		    #{bankcount,javaType=String,jdbcType=VARCHAR},
+		    #{isapprove,javaType=boolean,jdbcType=VARCHAR},
+		    #{shopstatus,javaType=String,jdbcType=VARCHAR},
+		    #{custid,javaType=String,jdbcType=VARCHAR},
+		    #{shopid,javaType=String,jdbcType=VARCHAR},
+		    #{apldate,javaType=java.util.Date},
+		    #{deal.action,javaType=int,jdbcType=INTEGER}
+		)}
+	</select>
+    
+	<!-- 店铺基础信息维护-->
+	<select id="SaveShopBase" resultType="com.lflweb.entity.mar.MarShopdetail" parameterType="com.lflweb.entity.mar.MarShopdetail" statementType="CALLABLE">
+		{call P_Save_ShopBase(
+		    #{shopid,javaType=String,jdbcType=VARCHAR},
+		    #{shopname,javaType=String,jdbcType=VARCHAR},
+		    #{shopavator,javaType=String,jdbcType=VARCHAR},
+		    #{shopdescription,javaType=String,jdbcType=VARCHAR},
+		    #{addressid,javaType=String,jdbcType=VARCHAR},
+		    #{isreceivemessage,javaType=boolean,jdbcType=VARCHAR},
+		    #{createdate,javaType=java.util.Date},
+		    #{operator,javaType=String,jdbcType=VARCHAR},
+		    #{remark,javaType=String,jdbcType=VARCHAR},
+		    #{deal.action,javaType=int,jdbcType=INTEGER}
+		)}
+	</select>
+	
+	<!-- 根据店铺编号查询店铺内商品-->
+	<select id="GetPrdListByShopId" resultType="com.lflweb.entity.prd.PrdBase" parameterType="com.lflweb.entity.prd.PrdBase" statementType="CALLABLE">
+		{call P_Get_PrdListByShopId(	    
+		    #{search.search,javaType=String,jdbcType=VARCHAR},
+		    #{search.start,javaType=int,jdbcType=INTEGER},
+		    #{search.end,javaType=int,jdbcType=INTEGER},
+		    #{search.total,javaType=int,jdbcType=INTEGER,mode=OUT}
+		)}
+	</select>
+	
+	<!-- 店铺商品维护 和后台商品维护共用一个存储过程-->
+	<select id="SaveShopPrd" resultType="com.lflweb.entity.prd.PrdBase" parameterType="com.lflweb.entity.prd.PrdBase" statementType="CALLABLE">
+		{call P_Save_PrdBase(
+		    #{prdid,javaType=String,jdbcType=VARCHAR},
+		    #{prdname,javaType=String,jdbcType=VARCHAR},
+		    #{prdbrief,javaType=String,jdbcType=VARCHAR},
+		    #{prdtype,javaType=String,jdbcType=VARCHAR},
+		    #{prdprice,javaType=double,jdbcType=DOUBLE},
+		    #{prdunit,javaType=String,jdbcType=VARCHAR},
+		    #{prdtax,javaType=double,jdbcType=DOUBLE},
+		    #{custsource,javaType=String,jdbcType=VARCHAR},
+		    #{custtype,javaType=String,jdbcType=VARCHAR},
+		    #{paytype,javaType=String,jdbcType=VARCHAR},
+		    #{salezone,javaType=String,jdbcType=VARCHAR},
+		    #{custgrade,javaType=String,jdbcType=VARCHAR},
+		    #{prdstatus,javaType=String,jdbcType=VARCHAR},
+            #{onsaledate,javaType=java.util.Date},
+            #{offsaledate,javaType=java.util.Date},
+            #{createdate,javaType=java.util.Date},
+            #{createoperator,javaType=String,jdbcType=VARCHAR},
+            #{modifydate,javaType=java.util.Date},
+            #{remark,javaType=String,jdbcType=VARCHAR},
+            #{keyword,javaType=String,jdbcType=VARCHAR},
+            #{meaid,javaType=String,jdbcType=VARCHAR},
+            #{heat,javaType=int,jdbcType=INTEGER},
+            #{shopid,javaType=String,jdbcType=VARCHAR},
+            #{prdintroduction,javaType=String,jdbcType=VARCHAR},
+            #{prdvedio,javaType=String,jdbcType=VARCHAR},
+            #{skuid,javaType=String,jdbcType=VARCHAR},
+            #{prdkind,javaType=String,jdbcType=VARCHAR},
+            #{giveintegral,javaType=int,jdbcType=INTEGER},
+            #{prdspec,javaType=String,jdbcType=VARCHAR},
+            #{deal.action,javaType=int,jdbcType=INTEGER}
+		)}
+	</select>
+	
+	<!-- 店铺商品SKU维护 和后台商品维护共用一个存储过程-->
+	<select id="SaveShopPrdSku" resultType="com.lflweb.entity.prd.PrdSku" parameterType="com.lflweb.entity.prd.PrdSku" statementType="CALLABLE">
+		{call P_Save_PrdSku(
+		    #{skuid,javaType=String,jdbcType=VARCHAR},
+		    #{brandid,javaType=String,jdbcType=VARCHAR},
+		    #{skuname,javaType=String,jdbcType=VARCHAR},
+		    #{skudescription,javaType=String,jdbcType=VARCHAR},
+		    #{skutype,javaType=String,jdbcType=VARCHAR},
+            #{deal.action,javaType=int,jdbcType=INTEGER}
+        )}
+	</select>
+	
+	<!-- 店铺sku图片维护  和后台商品维护共用一个存储过程-->
+	<select id="SaveShopPrdImage" resultType="com.lflweb.entity.prd.PrdImage" parameterType="com.lflweb.entity.prd.PrdImage" statementType="CALLABLE">
+		{call P_Save_PrdImage(
+		    #{imageid,javaType=String,jdbcType=VARCHAR},
+		    #{imagename,javaType=String,jdbcType=VARCHAR},
+		    #{imageurl,javaType=String,jdbcType=VARCHAR},
+		    #{imagetype,javaType=String,jdbcType=VARCHAR},
+		    #{skuid,javaType=String,jdbcType=VARCHAR},
+            #{deal.action,javaType=int,jdbcType=INTEGER}
+        )}
+	</select>
+	
+	<!-- 店铺商品图片维护  和后台商品维护共用一个存储过程-->
+	<select id="SaveShopPrdBaseimg" resultType="com.lflweb.entity.prd.PrdBaseimg" parameterType="com.lflweb.entity.prd.PrdBaseimg" statementType="CALLABLE">
+		{call P_Save_PrdBaseimg(
+		    #{imageid,javaType=String,jdbcType=VARCHAR},
+		    #{imagename,javaType=String,jdbcType=VARCHAR},
+		    #{imageurl,javaType=String,jdbcType=VARCHAR},
+		    #{imagetype,javaType=String,jdbcType=VARCHAR},
+		    #{prdid,javaType=String,jdbcType=VARCHAR},
+            #{deal.action,javaType=int,jdbcType=INTEGER}
+        )}
+	</select>
+	
+	<!-- 根据店铺编号查询店铺订单-->
+	<select id="GetOrdListByShopId" resultType="com.lflweb.entity.ord.OrdBase" parameterType="com.lflweb.entity.ord.OrdBase" statementType="CALLABLE">
+		{call P_Get_OrdListByShopId(	    
+		    #{search.search,javaType=String,jdbcType=VARCHAR},
+		    #{search.start,javaType=int,jdbcType=INTEGER},
+		    #{search.end,javaType=int,jdbcType=INTEGER},
+		    #{search.total,javaType=int,jdbcType=INTEGER,mode=OUT}
+		)}
+	</select>
+
+</mapper>

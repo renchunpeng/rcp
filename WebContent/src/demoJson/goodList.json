@@ -1,0 +1,33 @@
+{
+  "success": true,
+  "error": 0,
+  "message": "success",
+  "data": {
+    "list": [
+      {
+        "addressId": "132431241",
+        "name": "许静晨",
+        "isdefault": true,
+        "phoneNumber": "18862237873",
+        "addressDetail": "江苏省 南京市 建邺区 新城科技园1栋 606室",
+        "addressType": "家庭地址"
+      },
+      {
+        "addressId": "132437891",
+        "name": "许静晨",
+        "isdefault": false,
+        "phoneNumber": "18862237873",
+        "addressDetail": "江苏省 南京市 建邺区 新城科技园1栋 606室",
+        "addressType": "公司地址"
+      },
+      {
+        "addressId": "132657241",
+        "name": "许静晨",
+        "isdefault": false,
+        "phoneNumber": "18862237873",
+        "addressDetail": "江苏省 南京市 建邺区 新城科技园1栋 606室",
+        "addressType": "家庭地址"
+      }
+    ]
+  }
+}

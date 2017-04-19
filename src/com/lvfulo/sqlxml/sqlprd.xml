@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+<mapper namespace="com.lvfulo.dao.prd.PrdDao">
+
+	<!-- 商品类型查询 -->
+	<select id="searchPrdType" resultType="com.lflweb.entity.prd.PrdType" parameterType="com.lflweb.entity.prd.PrdType" statementType="CALLABLE">
+		{call
+		P_Search_RcpPrdType(
+		#{search.search,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+
+	<!-- 商品信息查询 -->
+	<select id="searchPrdBase" resultType="com.lflweb.entity.prd.PrdBase" parameterType="com.lflweb.entity.prd.PrdBase" statementType="CALLABLE">
+		{call
+		P_Search_RcpPrdBase(
+		#{search.search,javaType=String,jdbcType=VARCHAR},
+		#{search.start,javaType=int,jdbcType=INTEGER},
+		#{search.end,javaType=int,jdbcType=INTEGER},
+		#{search.total,javaType=int,jdbcType=INTEGER,mode=OUT}
+		)}
+	</select>
+
+	<!-- 商品品牌表查询 -->
+	<select id="searchPrdBrand" resultType="com.lflweb.entity.prd.PrdBrand" parameterType="com.lflweb.entity.prd.PrdBrand" statementType="CALLABLE">
+		{call
+		P_Search_RcpPrdBrand(
+		#{search.search,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+
+	<!-- 商品sku查询 -->
+	<select id="searchPrdSku" resultType="com.lflweb.entity.prd.PrdSku" parameterType="com.lflweb.entity.prd.PrdSku" statementType="CALLABLE">
+		{call
+		P_Search_RcpPrdSku(
+		#{search.search,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+
+	<!-- 商品sku图片查询 -->
+	<select id="searchPrdImage" resultType="com.lflweb.entity.prd.PrdImage" parameterType="com.lflweb.entity.prd.PrdImage" statementType="CALLABLE">
+		{call
+		P_Search_RcpPrdImage(
+		#{search.search,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+
+	<!-- 商品套餐表查询 -->
+	<select id="searchPrdPackage" resultType="com.lflweb.entity.prd.PrdPackage" parameterType="com.lflweb.entity.prd.PrdPackage" statementType="CALLABLE">
+		{call
+		P_Search_RcpPrdPackage(
+		#{search.search,javaType=String,jdbcType=VARCHAR},
+		#{search.start,javaType=int,jdbcType=INTEGER},
+		#{search.end,javaType=int,jdbcType=INTEGER}
+		)}
+	</select>
+
+	<!-- 商品图片查询 -->
+	<select id="searchPrBaseimg" resultType="com.lflweb.entity.prd.PrdBaseimg" parameterType="com.lflweb.entity.prd.PrdBaseimg" statementType="CALLABLE">
+		{call
+		P_Search_RcpPrdBaseimg(
+		#{search.search,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+
+	<!-- 套餐图片查询 -->
+	<select id="searchPrdPackageimg" resultType="com.lflweb.entity.prd.PrdPackageimg" parameterType="com.lflweb.entity.prd.PrdPackageimg" statementType="CALLABLE">
+		{call
+		P_Search_RcpPrdPackageimg(
+		#{search.search,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+
+	<!-- 套餐商品明细 -->
+	<select id="SearchPrdPackagedetail" resultType="com.lflweb.entity.prd.PrdPackagedetail" parameterType="com.lflweb.entity.prd.PrdPackagedetail"
+		statementType="CALLABLE">
+		{call
+		P_Search_RcpPrdPackagedetail(
+		#{search.search,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+
+	<!-- 商品sku类型查询 -->
+	<select id="SearchSkuType" resultType="com.lflweb.entity.prd.PrdBase" parameterType="com.lflweb.entity.prd.PrdBase" statementType="CALLABLE">
+		{call
+		P_Search_RcpSkuType(
+		#{search.search,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+
+	<!-- 商品基础表查询 -->
+	<select id="searchPrdBaseimg" resultType="com.lflweb.entity.prd.PrdBaseimg" parameterType="com.lflweb.entity.prd.PrdBaseimg" statementType="CALLABLE">
+		{call
+		P_Search_RcpPrdBaseimg(
+		#{search.search,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+
+
+</mapper>

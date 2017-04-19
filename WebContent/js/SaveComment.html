@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+<title>新建网页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="布尔教育 http://www.itbool.com" />
+<script src='./jquery.min.js'>
+  
+</script>
+
+<script>
+  function GetJsonData() {
+    var common = {
+      delivery:"rcp",
+      name:"rcp"
+    };
+    
+    return common;
+  }
+  
+  var url = "http://localhost:80/lflweb/wxjs/getjsjdk";
+  $.ajax({
+    type : "post",
+    url : url,
+    contentType : "application/x-www-form-urlencoded; charset=utf-8",
+    data : {
+ //     common : JSON.stringify(GetJsonData())
+ url:"rrrrr"
+    },
+    cache : false,
+    async : false,
+    success : function(data, textStatus, jqXHR) {
+      alert(data);
+    },
+    error : function(XMLHttpRequest, textStatus, errorThrown) {
+      alert("请求失败！");
+    }
+  });
+</script>
+</head>
+<body>
+  <h3 id="test">请点击下面的按钮，通过 jQuery AJAX 改变这段文本。</h3>
+</body>
+</html>

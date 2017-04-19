@@ -1,0 +1,66 @@
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://cxf.apache.org/jaxws
+        http://cxf.apache.org/schemas/jaxws.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:component-scan base-package="com.nestle.webservice">
+	</context:component-scan>
+
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+
+	<!-- <bean id="srvcustom" class="com.nestle.webservice.custom.impl.CustomImpl" /> <jaxws:endpoint id="srvCustom" implementor="#srvcustom" address="/servicecustom" 
+		/> -->
+
+	<bean id="SpringQtzJob" class="com.lvfulo.controller.JfClear" />
+	<bean id="SpringQtzJob2" class="com.lvfulo.controller.CloseOrder" />
+
+	<bean id="SpringQtzJobMethod" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="SpringQtzJob" />
+		</property>
+		<property name="targetMethod">
+			<value>ClearIntegral</value> <!-- 要执行的方法名称 -->
+		</property>
+	</bean>
+
+	<bean id="SpringQtzJobMethod2" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="SpringQtzJob2" />
+		</property>
+		<property name="targetMethod">
+			<value>CloseOrd</value> <!-- 要执行的方法名称 -->
+		</property>
+	</bean>
+
+	<!-- ======================== 调度触发器-清除积分 ======================== -->
+	<bean id="CronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="SpringQtzJobMethod"></property>
+		<property name="cronExpression" value="0 10 * * * ?"></property>
+	</bean>
+
+	<!-- ======================== 调度触发器-关闭半小时未支付的订单 ======================== -->
+	<bean id="CronTriggerBean2" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="SpringQtzJobMethod2"></property>
+		<property name="cronExpression" value="0 30 * * * ?"></property>
+	</bean>
+
+	<!-- ======================== 调度触发器  ======================== -->
+	<bean id="SpringJobSchedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="CronTriggerBean" />
+				<ref bean="CronTriggerBean2" />
+			</list>
+		</property>
+	</bean>
+
+
+</beans>

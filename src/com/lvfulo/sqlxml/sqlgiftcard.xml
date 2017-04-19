@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+<mapper namespace="com.lvfulo.dao.ord.GiftCardDao">
+
+	<!-- 根据用户编号查询用户礼品卡列表-->
+	<select id="GetCardListByCustId" resultType="com.lflweb.entity.mar.MarMem" parameterType="com.lflweb.entity.mar.MarMem" statementType="CALLABLE">
+		{call P_Get_CardListByCustId(
+		    #{search.search,javaType=String,jdbcType=VARCHAR},
+		    #{search.start,javaType=int,jdbcType=INTEGER},
+		    #{search.end,javaType=int,jdbcType=INTEGER},
+		    #{search.total,javaType=int,jdbcType=INTEGER,mode=OUT}
+		)}
+	</select>
+	
+	<!-- 根据礼品卡编号查询配送记录-->
+	<select id="GetCardConByMemId" resultType="com.lflweb.entity.mar.MarCon" parameterType="com.lflweb.entity.mar.MarCon" statementType="CALLABLE">
+		{call P_Get_CardConByMemId(
+		    #{memId,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+	
+
+</mapper>

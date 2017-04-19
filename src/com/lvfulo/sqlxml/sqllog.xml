@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+<mapper namespace="com.lvfulo.dao.log.LogDao">
+
+	<!-- 查询基础配置表信息-->
+	<select id="SearchBasFeeset" resultType="com.lflweb.entity.bas.BasFeeset" parameterType="com.lflweb.entity.bas.BasFeeset" statementType="CALLABLE">
+		{call P_Search_RcpBasFeeset(
+		#{search.search,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+
+	<!-- 支付日志表(t_log_order_pay) -->
+	<update id="SaveLogOrderPay" statementType="CALLABLE" parameterType="com.lflweb.entity.log.LogOrderPay" flushCache="true">
+		{call P_Save_RcpLogOrderPay(
+		#{logid,javaType=String,jdbcType=VARCHAR},
+		#{custid,javaType=String,jdbcType=VARCHAR},
+		#{orderid,javaType=String,jdbcType=VARCHAR},
+		#{paytype,javaType=String,jdbcType=VARCHAR},
+		#{paydate,javaType=java.util.Date},
+		#{paysysid,javaType=String,jdbcType=VARCHAR},
+		#{payprice,javaType=double,jdbcType=DOUBLE},
+		#{paykind,javaType=String,jdbcType=VARCHAR},
+		#{servicefee,javaType=double,jdbcType=DOUBLE},
+		#{feerate,javaType=double,jdbcType=DOUBLE},
+		#{deal.action,javaType=int,jdbcType=INTEGER}
+		)}
+	</update>
+
+</mapper>

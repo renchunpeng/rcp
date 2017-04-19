@@ -1,0 +1,73 @@
+# Nodejs
+node_modules
+bower_components
+vendor
+
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Bakup file
+*.bak
+
+# Grunt intermediate storage
+.grunt
+
+# Compiled binary addons
+build/Release
+/target/
+/build/
+/dist/
+
+# idea IDE file
+/.idea/
+/.vscode/
+
+# sublime file
+*.sublime-project
+*.sublime-workspace
+
+# OS or Editor folders
+.DS_Store
+._*
+Thumbs.db
+.cache
+.settings
+.tmproj
+*.esproj
+nbproject
+
+# JS/CSS Bundle generation & map file
+**/bundle.js
+**/bundle.min.js.map
+**/bundle.min.js
+**/bundle.css
+
+# Java Project extenal configuation files
+/.externalToolBuilders/
+/.metadata/
+/RemoteSystemsTempFiles/
+/build/
+/.git/
+
+# IntelliJ iml file
+/*.iml
+
+# Numerous always-ignore extensions
+*.diff
+*.err
+*.orig
+*.rej
+*.swo
+*.swp
+*.zip
+*.vi
+*~
+
+/bin/
+

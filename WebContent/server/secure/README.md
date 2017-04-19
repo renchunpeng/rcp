@@ -1,0 +1,3 @@
+**put secure keys in this directory**
+
+*.pem, *.crt, *.key, etc...

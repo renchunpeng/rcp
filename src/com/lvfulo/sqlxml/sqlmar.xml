@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+<mapper namespace="com.lvfulo.dao.mar.MarDao">
+
+	<!-- 根据店铺编号查询店铺内商品 -->
+	<select id="SearchMarAdv" resultType="com.lflweb.entity.mar.MarAdv" parameterType="com.lflweb.entity.mar.MarAdv" statementType="CALLABLE">
+		{call P_Search_RcpMarAdv(
+		#{search.search,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+
+	<!-- 首页大类查询 -->
+	<select id="SearchPrdBigType" resultType="com.lflweb.entity.prd.PrdBigType" parameterType="com.lflweb.entity.prd.PrdBigType" statementType="CALLABLE">
+		{call
+		P_Search_RcpPrdBigType(
+		#{search.search,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+
+	<!-- 会员基础信息表(t_mar_mem) -->
+	<update id="SaveMarMem" statementType="CALLABLE" parameterType="com.lflweb.entity.mar.MarMem" flushCache="true">
+		{call P_Save_RcpMarMem(
+		#{memid,javaType=String,jdbcType=VARCHAR},
+		#{prdid,javaType=String,jdbcType=VARCHAR},
+		#{custid,javaType=String,jdbcType=VARCHAR},
+		#{orderid,javaType=String,jdbcType=VARCHAR},
+
+		#{createdate,javaType=java.util.Date},
+		#{ondate,javaType=java.util.Date},
+		#{offdate,javaType=java.util.Date},
+
+		#{usertimes,javaType=int,jdbcType=INTEGER},
+		#{resttimes,javaType=int,jdbcType=INTEGER},
+
+		#{memtype,javaType=String,jdbcType=VARCHAR},
+		#{addressid,javaType=String,jdbcType=VARCHAR},
+		#{memstatus,javaType=String,jdbcType=VARCHAR},
+		#{deal.action,javaType=int,jdbcType=INTEGER}
+		)}
+	</update>
+
+	<!-- 店铺基础信息表 -->
+	<select id="SearchMarShopdetail" resultType="com.lflweb.entity.mar.MarShopdetail" parameterType="com.lflweb.entity.mar.MarShopdetail" statementType="CALLABLE">
+		{call
+		P_Search_RcpMarShopdetail(
+		#{search.search,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+	
+	<!-- 店铺基础信息表保存 -->
+	<update id="SaveMarShopdetail" statementType="CALLABLE" parameterType="com.lflweb.entity.mar.MarShopdetail" flushCache="true">
+		{call P_Save_Shopdetail(
+		#{shopid,javaType=String,jdbcType=VARCHAR},
+		#{shopname,javaType=String,jdbcType=VARCHAR},
+		#{shopavator,javaType=String,jdbcType=VARCHAR},
+		#{shopdescription,javaType=String,jdbcType=VARCHAR},
+		#{addressid,javaType=String,jdbcType=VARCHAR},
+		#{isreceivemessage,javaType=boolean,jdbcType=BOOLEAN},
+		#{createdate,javaType=java.util.Date},
+		#{operator,javaType=String,jdbcType=VARCHAR},
+		#{remark,javaType=String,jdbcType=VARCHAR},
+		#{deal.action,javaType=int,jdbcType=INTEGER}
+		)}
+	</update>
+
+</mapper>

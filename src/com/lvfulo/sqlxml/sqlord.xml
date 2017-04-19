@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+<mapper namespace="com.lvfulo.dao.ord.OrdDao">
+
+	<!-- 购物车查询 -->
+	<select id="GetListOrdShop" resultType="com.lflweb.entity.ord.OrdShop" parameterType="com.lflweb.entity.ord.OrdShop" statementType="CALLABLE">
+		{call P_Get_OrdShop(
+		#{custid,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+
+	<!-- 购物车查询 -->
+	<select id="searchOrdShop" resultType="com.lflweb.entity.ord.OrdShop" parameterType="com.lflweb.entity.ord.OrdShop" statementType="CALLABLE">
+		{call
+		P_Search_RcpOrdShop(
+		#{search.search,javaType=String,jdbcType=VARCHAR},
+		#{search.start,javaType=int,jdbcType=INTEGER},
+		#{search.end,javaType=int,jdbcType=INTEGER},
+		#{search.total,javaType=int,jdbcType=INTEGER,mode=OUT}
+		)}
+	</select>
+
+	<!-- 购物车保存 -->
+	<select id="saveOrdShop" resultType="com.lflweb.entity.ord.OrdShop" parameterType="com.lflweb.entity.ord.OrdShop" statementType="CALLABLE">
+		{call P_Save_RcpOrdShop(
+		#{custid,javaType=String,jdbcType=VARCHAR},
+		#{prdid,javaType=String,jdbcType=VARCHAR},
+		#{prdcount,javaType=int,jdbcType=INTEGER},
+		#{createdate,javaType=java.util.Date},
+		#{shopstatus,javaType=String,jdbcType=VARCHAR},
+		#{updatedate,javaType=java.util.Date},
+		#{prdtype,javaType=String,jdbcType=VARCHAR},
+		#{prdkind,javaType=String,jdbcType=VARCHAR},
+		#{shopid,javaType=String,jdbcType=VARCHAR},
+		#{deal.action,javaType=int,jdbcType=INTEGER}
+		)}
+
+	</select>
+
+	<!-- 查询订单基础表主表 -->
+	<select id="searchOrdBaseMain" resultType="com.lflweb.entity.ord.OrdBaseMain" parameterType="com.lflweb.entity.ord.OrdBaseMain" statementType="CALLABLE">
+		{call
+		P_Search_RcpOrdBaseMain(
+		#{search.search,javaType=String,jdbcType=VARCHAR},
+		#{search.start,javaType=int,jdbcType=INTEGER},
+		#{search.end,javaType=int,jdbcType=INTEGER},
+		#{search.total,javaType=int,jdbcType=INTEGER,mode=OUT}
+		)}
+	</select>
+
+	<!-- 查询订单基础表 -->
+	<select id="searchOrdBase" resultType="com.lflweb.entity.ord.OrdBase" parameterType="com.lflweb.entity.ord.OrdBase" statementType="CALLABLE">
+		{call
+		P_Search_RcpOrdBase2(
+		#{search.search,javaType=String,jdbcType=VARCHAR},
+		#{search.start,javaType=int,jdbcType=INTEGER},
+		#{search.end,javaType=int,jdbcType=INTEGER},
+		#{search.total,javaType=int,jdbcType=INTEGER,mode=OUT}
+		)}
+	</select>
+
+	<!-- 查询所有订单 -->
+	<select id="searchAllOrdBase" resultType="com.lflweb.entity.ord.OrdBase" parameterType="com.lflweb.entity.ord.OrdBase" statementType="CALLABLE">
+		{call
+		P_Search_RcpOrdBase(
+		#{search.search,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+
+	<!-- 存储订单主表数据_未拆单(t_ord_base_main) -->
+	<update id="saveOrdBaseMain" statementType="CALLABLE" parameterType="com.lflweb.entity.ord.OrdBaseMain" flushCache="true">
+		{call P_Save_RcpOrdBaseMain(
+		#{orderid,javaType=String,jdbcType=VARCHAR},
+		#{custid,javaType=String,jdbcType=VARCHAR},
+		#{addressid,javaType=String,jdbcType=VARCHAR},
+		#{senddate,javaType=java.util.Date},
+		#{totalprice,javaType=double,jdbcType=DECIMAL},
+		#{realprice,javaType=double,jdbcType=DECIMAL},
+		#{paytype,javaType=String,jdbcType=VARCHAR},
+		#{ordersource,javaType=String,jdbcType=VARCHAR},
+		#{scoreamt,javaType=double,jdbcType=DECIMAL},
+		#{discountamt,javaType=double,jdbcType=DECIMAL},
+		#{strategyid,javaType=String,jdbcType=VARCHAR},
+		#{createdate,javaType=java.util.Date},
+		#{paystatus,javaType=String,jdbcType=VARCHAR},
+		#{paydate,javaType=java.util.Date},
+		#{paysysid,javaType=String,jdbcType=VARCHAR},
+		#{appid,javaType=String,jdbcType=VARCHAR},
+		#{relatedorder,javaType=String,jdbcType=VARCHAR},
+		#{okdate,javaType=java.util.Date},
+		#{orderstatus,javaType=String,jdbcType=VARCHAR},
+		#{orderflag,javaType=String,jdbcType=VARCHAR},
+		#{returnid,javaType=String,jdbcType=VARCHAR},
+		#{returnstatus,javaType=String,jdbcType=VARCHAR},
+		#{isinvoice,javaType=boolean,jdbcType=BOOLEAN},
+		#{invoicetranid,javaType=String,jdbcType=VARCHAR},
+		#{printdate,javaType=java.util.Date},
+		#{iscomment,javaType=boolean,jdbcType=BOOLEAN},
+		#{commentdate,javaType=java.util.Date},
+		#{busflag,javaType=String,jdbcType=VARCHAR},
+		#{remark,javaType=String,jdbcType=VARCHAR},
+		#{ordersalesource,javaType=String,jdbcType=VARCHAR},
+		#{shopid,javaType=String,jdbcType=VARCHAR},
+		#{generatetype,javaType=String,jdbcType=VARCHAR},
+		#{deal.action,javaType=int,jdbcType=INTEGER}
+		)}
+	</update>
+
+	<!-- 存储订单主表数据(t_ord_base) -->
+	<update id="saveOrdBase" statementType="CALLABLE" parameterType="com.lflweb.entity.ord.OrdBase" flushCache="true">
+		{call P_Save_RcpOrdBase(
+		#{orderid,javaType=String,jdbcType=VARCHAR},
+		#{custid,javaType=String,jdbcType=VARCHAR},
+		#{addressid,javaType=String,jdbcType=VARCHAR},
+		#{senddate,javaType=java.util.Date},
+		#{totalprice,javaType=double,jdbcType=DECIMAL},
+		#{realprice,javaType=double,jdbcType=DECIMAL},
+		#{paytype,javaType=String,jdbcType=VARCHAR},
+		#{ordersource,javaType=String,jdbcType=VARCHAR},
+		#{scoreamt,javaType=double,jdbcType=DECIMAL},
+		#{discountamt,javaType=double,jdbcType=DECIMAL},
+		#{strategyid,javaType=String,jdbcType=VARCHAR},
+		#{createdate,javaType=java.util.Date},
+		#{paystatus,javaType=String,jdbcType=VARCHAR},
+		#{paydate,javaType=java.util.Date},
+		#{paysysid,javaType=String,jdbcType=VARCHAR},
+		#{appid,javaType=String,jdbcType=VARCHAR},
+		#{relatedorder,javaType=String,jdbcType=VARCHAR},
+		#{okdate,javaType=java.util.Date},
+		#{orderstatus,javaType=String,jdbcType=VARCHAR},
+		#{orderflag,javaType=String,jdbcType=VARCHAR},
+		#{returnid,javaType=String,jdbcType=VARCHAR},
+		#{returnstatus,javaType=String,jdbcType=VARCHAR},
+		#{isinvoice,javaType=boolean,jdbcType=BOOLEAN},
+		#{invoicetranid,javaType=String,jdbcType=VARCHAR},
+		#{printdate,javaType=java.util.Date},
+		#{iscomment,javaType=boolean,jdbcType=BOOLEAN},
+		#{commentdate,javaType=java.util.Date},
+		#{busflag,javaType=String,jdbcType=VARCHAR},
+		#{remark,javaType=String,jdbcType=VARCHAR},
+		#{ordersalesource,javaType=String,jdbcType=VARCHAR},
+		#{shopid,javaType=String,jdbcType=VARCHAR},
+		#{generatetype,javaType=String,jdbcType=VARCHAR},
+		#{orderfather,javaType=String,jdbcType=VARCHAR},
+		#{deal.action,javaType=int,jdbcType=INTEGER}
+		)}
+	</update>
+
+	<!-- 查询订单明细表 -->
+	<select id="searchOrdSubdetails" resultType="com.lflweb.entity.ord.OrdSubdetail" parameterType="com.lflweb.entity.ord.OrdSubdetail" statementType="CALLABLE">
+		{call
+		P_Search_RcpOrdSubdetails(
+		#{search.search,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+
+	<!-- 存储订单明细表 -->
+	<update id="saveOrdSubdetails" statementType="CALLABLE" parameterType="com.lflweb.entity.ord.OrdSubdetail" flushCache="true">
+		{call P_Save_RcpOrdSubdetails(
+		#{orderid,javaType=String,jdbcType=VARCHAR},
+		#{prdid,javaType=String,jdbcType=VARCHAR},
+		#{prdnum,javaType=int,jdbcType=INTEGER},
+		#{prdunit,javaType=String,jdbcType=VARCHAR},
+		#{prdprice,javaType=double,jdbcType=DECIMAL},
+		#{sumprice,javaType=double,jdbcType=DECIMAL},
+		#{prdtax,javaType=double,jdbcType=DECIMAL},
+		#{taxamt,javaType=double,jdbcType=DECIMAL},
+		#{prdkind,javaType=String,jdbcType=VARCHAR},
+		#{prdtype,javaType=String,jdbcType=VARCHAR},
+		#{shopid,javaType=String,jdbcType=VARCHAR},
+		#{deal.action,javaType=int,jdbcType=INTEGER}
+		)}
+	</update>
+
+	<!-- 订单状态跟踪表 -->
+	<update id="saveOrdTrack" statementType="CALLABLE" parameterType="com.lflweb.entity.ord.OrdTrack" flushCache="true">
+		{call P_Save_RcpOrdTrack(
+		#{orderid,javaType=String,jdbcType=VARCHAR},
+		#{updatedate,javaType=java.util.Date},
+		#{originstatus,javaType=String,jdbcType=VARCHAR},
+		#{newstatus,javaType=String,jdbcType=VARCHAR},
+		#{dealoperator,javaType=String,jdbcType=VARCHAR},
+		#{deal.action,javaType=int,jdbcType=INTEGER}
+		)}
+	</update>
+
+	<!-- 订单退单表 -->
+	<update id="saveOrdReturn" statementType="CALLABLE" parameterType="com.lflweb.entity.ord.OrdReturn" flushCache="true">
+		{call P_Save_RcpOrdReturn(
+		#{returnid,javaType=String,jdbcType=VARCHAR},
+		#{orderid,javaType=String,jdbcType=VARCHAR},
+		#{createdate,javaType=java.util.Date},
+		#{returnstatus,javaType=String,jdbcType=VARCHAR},
+		#{returnreason,javaType=String,jdbcType=VARCHAR},
+		#{orderprice,javaType=double,jdbcType=DECIMAL},
+		#{returnprice,javaType=double,jdbcType=DECIMAL},
+		#{okdate,javaType=java.util.Date,jdbcType=DATE},
+		#{remark,javaType=String,jdbcType=VARCHAR},
+		#{custid,javaType=String,jdbcType=VARCHAR},
+		#{deal.action,javaType=int,jdbcType=INTEGER}
+		)}
+	</update>
+
+	<!-- 退单状态跟踪表(t_ord_return) -->
+	<update id="saveReturnTrack" statementType="CALLABLE" parameterType="com.lflweb.entity.ord.OrdReturnTrack" flushCache="true">
+		{call P_Save_RcpOrdReturnTrack(
+		#{returnid,javaType=String,jdbcType=VARCHAR},
+		#{updatedate,javaType=java.util.Date},
+		#{dealoperator,javaType=String,jdbcType=VARCHAR},
+		#{originstatus,javaType=String,jdbcType=VARCHAR},
+		#{newstatus,javaType=String,jdbcType=VARCHAR},
+		#{deal.action,javaType=int,jdbcType=INTEGER}
+		)}
+	</update>
+
+	<!-- 配送评价保存(t_ord_delivery_comment) -->
+	<update id="saveOrdDeliveryComment" statementType="CALLABLE" parameterType="com.lflweb.entity.ord.OrdDeliveryComment" flushCache="true">
+		{call
+		P_Save_RcpOrdDeliveryComment(
+		#{dcommentid,javaType=String,jdbcType=VARCHAR},
+		#{orderid,javaType=String,jdbcType=VARCHAR},
+		#{prdpacking,javaType=String,jdbcType=VARCHAR},
+		#{deliveryspeed,javaType=String,jdbcType=VARCHAR},
+		#{deliveryservice,javaType=String,jdbcType=VARCHAR},
+		#{commdate,javaType=java.util.Date},
+		#{deal.action,javaType=int,jdbcType=INTEGER}
+		)}
+	</update>
+
+	<!-- 商品评价保存(t_ord_prd_comment) -->
+	<update id="saveOrdPrdComment" statementType="CALLABLE" parameterType="com.lflweb.entity.ord.OrdPrdComment" flushCache="true">
+		{call P_Save_RcpOrdPrdComment(
+		#{pcommentid,javaType=String,jdbcType=VARCHAR},
+		#{orderid,javaType=String,jdbcType=VARCHAR},
+		#{prdid,javaType=String,jdbcType=VARCHAR},
+		#{prdsatisfaction,javaType=String,jdbcType=VARCHAR},
+		#{prdcomment,javaType=String,jdbcType=VARCHAR},
+		#{commdate,javaType=java.util.Date},
+		#{commreply,javaType=String,jdbcType=VARCHAR},
+		#{replyer,javaType=String,jdbcType=VARCHAR},
+		#{replydate,javaType=java.util.Date,jdbcType=DATE},
+		#{commstatus,javaType=String,jdbcType=VARCHAR},
+		#{deal.action,javaType=int,jdbcType=INTEGER}
+		)}
+	</update>
+
+	<!-- 订单配送表 -->
+	<update id="saveOrdDispatch" statementType="CALLABLE" parameterType="com.lflweb.entity.ord.OrdDispatch" flushCache="true">
+		{call P_Save_RcpOrdDispatch(
+		#{dispatchid,javaType=String,jdbcType=VARCHAR},
+		#{orderid,javaType=String,jdbcType=VARCHAR},
+		#{dispatcher,javaType=String,jdbcType=VARCHAR},
+		#{phonenumber,javaType=String,jdbcType=VARCHAR},
+		#{starttime,javaType=java.util.Date},
+		#{endtime,javaType=java.util.Date},
+		#{expressid,javaType=String,jdbcType=VARCHAR},
+		#{deal.action,javaType=int,jdbcType=INTEGER}
+		)}
+	</update>
+
+	<!-- 发票流水表保存(t_invoice_trans) -->
+	<update id="saveActInvoiceTransMain" flushCache="true" parameterType="com.lflweb.entity.act.ActInvoiceTransMain" statementType="CALLABLE">
+		{call
+		P_Save_RcpInvoiceTransMain(
+		#{invoicetranid,javaType=String,jdbcType=VARCHAR},
+		#{invoiceid,javaType=String,jdbcType=VARCHAR},
+		#{invoicecode,javaType=String,jdbcType=VARCHAR},
+		#{invoicestatus,javaType=String,jdbcType=VARCHAR},
+		#{invoicetype,javaType=String,jdbcType=VARCHAR},
+		#{invoiceproperty,javaType=String,jdbcType=VARCHAR},
+		#{invoicerelation,javaType=String,jdbcType=VARCHAR},
+		#{createdate,javaType=java.util.Date},
+		#{invoicedate,javaType=java.util.Date},
+		#{invoiceamt,javaType=double,jdbcType=DOUBLE},
+		#{invoiceperson,javaType=String,jdbcType=VARCHAR},
+		#{custid,javaType=String,jdbcType=VARCHAR},
+		#{invoicetitle,javaType=String,jdbcType=VARCHAR},
+		#{taxid,javaType=String,jdbcType=VARCHAR},
+		#{invoiceaddress,javaType=String,jdbcType=VARCHAR},
+		#{invoicemobile,javaType=String,jdbcType=VARCHAR},
+		#{openbank,javaType=String,jdbcType=VARCHAR},
+		#{bankaccount,javaType=String,jdbcType=VARCHAR},
+		#{expressid,javaType=String,jdbcType=VARCHAR},
+		#{remark,javaType=String,jdbcType=VARCHAR},
+		#{addressid,javaType=String,jdbcType=VARCHAR},
+		#{paytype,javaType=String,jdbcType=VARCHAR},
+		#{paystatus,javaType=String,jdbcType=VARCHAR},
+		#{paydate,javaType=java.util.Date},
+		#{paysysid,javaType=String,jdbcType=VARCHAR},
+		#{expressprice,javaType=double,jdbcType=DOUBLE},
+		#{expresscompany,javaType=String,jdbcType=VARCHAR},
+		#{expressdate,javaType=java.util.Date},
+		#{appid,javaType=String,jdbcType=VARCHAR},
+		#{jhexpressprice,javaType=double,jdbcType=DOUBLE},
+		#{deal.action,javaType=int,jdbcType=INTEGER}
+		)}
+	</update>
+
+	<!-- 发票流水表保存(t_invoice_trans) -->
+	<update id="saveActInvoiceTrans" flushCache="true" parameterType="com.lflweb.entity.act.ActInvoiceTrans" statementType="CALLABLE">
+		{call
+		P_Save_RcpInvoiceTrans(
+		#{invoicetranid,javaType=String,jdbcType=VARCHAR},
+		#{invoiceid,javaType=String,jdbcType=VARCHAR},
+		#{invoicecode,javaType=String,jdbcType=VARCHAR},
+		#{invoicestatus,javaType=String,jdbcType=VARCHAR},
+		#{invoicetype,javaType=String,jdbcType=VARCHAR},
+		#{invoiceproperty,javaType=String,jdbcType=VARCHAR},
+		#{invoicerelation,javaType=String,jdbcType=VARCHAR},
+		#{createdate,javaType=java.util.Date},
+		#{invoicedate,javaType=java.util.Date},
+		#{invoiceamt,javaType=double,jdbcType=DOUBLE},
+		#{invoiceperson,javaType=String,jdbcType=VARCHAR},
+		#{custid,javaType=String,jdbcType=VARCHAR},
+		#{invoicetitle,javaType=String,jdbcType=VARCHAR},
+		#{taxid,javaType=String,jdbcType=VARCHAR},
+		#{invoiceaddress,javaType=String,jdbcType=VARCHAR},
+		#{invoicemobile,javaType=String,jdbcType=VARCHAR},
+		#{openbank,javaType=String,jdbcType=VARCHAR},
+		#{bankaccount,javaType=String,jdbcType=VARCHAR},
+		#{expressid,javaType=String,jdbcType=VARCHAR},
+		#{remark,javaType=String,jdbcType=VARCHAR},
+		#{addressid,javaType=String,jdbcType=VARCHAR},
+		#{paytype,javaType=String,jdbcType=VARCHAR},
+		#{paystatus,javaType=String,jdbcType=VARCHAR},
+		#{paydate,javaType=java.util.Date},
+		#{paysysid,javaType=String,jdbcType=VARCHAR},
+		#{expressprice,javaType=double,jdbcType=DOUBLE},
+		#{expresscompany,javaType=String,jdbcType=VARCHAR},
+		#{expressdate,javaType=java.util.Date},
+		#{appid,javaType=String,jdbcType=VARCHAR},
+		#{jhexpressprice,javaType=double,jdbcType=DOUBLE},
+		#{invoicefather,javaType=String,jdbcType=VARCHAR},
+		#{deal.action,javaType=int,jdbcType=INTEGER}
+		)}
+	</update>
+
+	<!-- 发票订单明细(t_invoice_transdetail) -->
+	<update id="saveActInvoiceTransDetail" flushCache="true" parameterType="com.lflweb.entity.act.ActInvoiceTransdetail" statementType="CALLABLE">
+		{call
+		P_Save_RcpInvoiceTransDetail(
+		#{invoicetranid,javaType=String,jdbcType=VARCHAR},
+		#{orderid,javaType=String,jdbcType=VARCHAR},
+		#{orderamt,javaType=double,jdbcType=DOUBLE},
+		#{deal.action,javaType=int,jdbcType=INTEGER}
+		)}
+	</update>
+
+	<!-- 发票列表查询 (分页) -->
+	<select id="searchActInvoiceTrans" resultType="com.lflweb.entity.act.ActInvoiceTrans" parameterType="com.lflweb.entity.act.ActInvoiceTrans"
+		statementType="CALLABLE">
+		{call
+		P_Search_RcpActInvoiceTrans2(
+		#{search.search,javaType=String,jdbcType=VARCHAR},
+		#{search.start,javaType=int,jdbcType=INTEGER},
+		#{search.end,javaType=int,jdbcType=INTEGER},
+		#{search.total,javaType=int,jdbcType=INTEGER,mode=OUT}
+		)}
+	</select>
+
+	<!-- 发票明细查询(t_invoice_transdetail) -->
+	<select id="searchActInvoiceTransdetail" resultType="com.lflweb.entity.act.ActInvoiceTransdetail" parameterType="com.lflweb.entity.act.ActInvoiceTransdetail"
+		statementType="CALLABLE">
+		{call
+		P_Search_RcpActInvoiceTransdetail(
+		#{search.search,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+
+	<!-- 积分规则查询 -->
+	<select id="searchruleintegral" resultType="com.lflweb.entity.ord.RuleIntegral" parameterType="com.lflweb.entity.ord.RuleIntegral" statementType="CALLABLE">
+		{call
+		P_Search_RcpRuleIntegral(
+		#{search.search,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+
+	<!-- 保存到历史购物车(t_ord_history_shop) -->
+	<update id="saveOrdHistoryShop" statementType="CALLABLE" parameterType="com.lflweb.entity.ord.OrdHistoryShop" flushCache="true">
+		{call P_Save_RcpOrdHistoryShop(
+		#{custid,javaType=String,jdbcType=VARCHAR},
+		#{prdid,javaType=String,jdbcType=VARCHAR},
+		#{prdcount,javaType=int,jdbcType=INTEGER},
+		#{createdate,javaType=java.util.Date},
+
+		#{prdtype,javaType=String,jdbcType=VARCHAR},
+		#{shopid,javaType=String,jdbcType=VARCHAR},
+		#{prdkind,javaType=String,jdbcType=VARCHAR},
+		#{deal.action,javaType=int,jdbcType=INTEGER}
+		)}
+	</update>
+
+	<!-- 整站精选 -->
+	<select id="searchPrdAllSelect" resultType="com.lflweb.entity.prd.PrdAllSelect" parameterType="com.lflweb.entity.prd.PrdAllSelect" statementType="CALLABLE">
+		{call
+		P_Search_RcpAllSelect(
+		#{search.search,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+
+	<!-- 精挑好货 -->
+	<select id="searchPrdTypeSelect" resultType="com.lflweb.entity.prd.PrdTypeSelect" parameterType="com.lflweb.entity.prd.PrdTypeSelect" statementType="CALLABLE">
+		{call
+		P_Search_RcpTypeSelect(
+		#{search.search,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+
+	<!-- 商品评价查询 -->
+	<select id="SearchPrdCommon" resultType="com.lflweb.entity.ord.OrdPrdComment" parameterType="com.lflweb.entity.ord.OrdPrdComment" statementType="CALLABLE">
+		{call
+		P_Search_RcpPrdCommon(
+		#{search.search,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+
+	<!-- 查询订单退单表 -->
+	<select id="SearchOrdReturn" resultType="com.lflweb.entity.ord.OrdReturn" parameterType="com.lflweb.entity.ord.OrdReturn" statementType="CALLABLE">
+		{call
+		P_Search_RcpOrdReturn(
+		#{search.search,javaType=String,jdbcType=VARCHAR}
+		)}
+	</select>
+</mapper>
